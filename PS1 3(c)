@@ -1,10 +1,8 @@
 # Ariff Zahiruddin 17104804
-
-
 # row and column interchanged. 
 # i = row and j = columns in python versus i = columns and j = row in hand writing
 
-# Initialise an array storing values. initially all values are 0
+# Initialise an array storing values at 0
 u = [
     [0,0,0,0,0],
     [0,0,0,0,0],
@@ -12,7 +10,7 @@ u = [
     [0,0,0,0,0],
     [0,0,0,0,0],
 ]
-# Initialise an array storing errors 
+# Initialising array storing errors 
 u_e = [
     [0,0,0,0],
     [0,0,0,0],
@@ -20,7 +18,7 @@ u_e = [
     [0,0,0,0],
 ]
 
-# Apply boundary conditions
+# Applying boundary conditions
 u[0][1]=75
 u[0][2]=75
 u[0][3]=75
