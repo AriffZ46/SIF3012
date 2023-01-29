@@ -1,0 +1,61 @@
+import numpy as np
+import pandas as pd
+
+def f(x):
+  return 1/(1+x**2)
+b = 5
+a = 0
+
+analytical = np.arctan(5)
+analytical
+
+N = 10
+#Monte Carlo Method
+def MC(N):
+  xi = np.linspace(a,b,N)
+  f_vec = np.vectorize(f)
+  sum_f_xi = np.sum(f_vec(xi))
+  monte_carlo = (1/N)*(b-a)*sum_f_xi
+  return monte_carlo
+  
+  #Midpoint Method
+def midpoint(N):
+  xi = np.linspace(a,b,N)
+  shift = xi[1]-xi[0]
+  xi = xi + shift/2
+  xi = xi[:-1]
+  f_vec = np.vectorize(f)
+  sum_f_xi = np.sum(f_vec(xi))
+  sum_area = sum_f_xi*shift
+  return sum_area
+  
+  #Trapezoid Method
+def trapezoid(N):
+  xi = np.linspace(a,b,N)
+  width = xi[1]-xi[0]
+  sum = 0
+  for i in range(N-1):
+    sum+=((f(xi[i]) + f(xi[i+1]))/2) * (width)
+  return sum
+  
+  #Simpson Method
+def simpson(N):
+  xi = np.linspace(a,b,N)
+  width = xi[1]-xi[0]
+  sum = 0
+  for i in range(N-1):
+    sum += ((xi[i+1]-xi[i])/6) * (f(xi[i])+4*f((xi[i]+xi[i+1])/2)+f(xi[i+1]))
+  return sum
+  
+  df = pd.DataFrame(columns=['N','Midpoint','Trapezoid','Simpson','Monte Carlo'])
+for i in range(2,100):
+  midpoint_error = abs((analytical-midpoint(i))/analytical)
+  monte_carlo_error = abs((analytical-MC(i))/analytical)
+  trapezoid_error = abs((analytical-trapezoid(i))/analytical)
+  simpson_error = abs((analytical-simpson(i))/analytical)
+  df.loc[len(df.index)] = [i,midpoint_error,trapezoid_error,simpson_error,monte_carlo_error]
+print
+df
+
+#Monte Carlo method has the worst performance among 4 methods. 
+#Simpson method performs the best, followed by midpoint method (which outperform trapeziod method especially at high  N )
