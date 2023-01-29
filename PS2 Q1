@@ -1,0 +1,16 @@
+import numpy as np
+
+A = [[1,2,0],[-2,1,2],[1,3,1]]
+x0 = [1,1,1]
+
+xi = x0
+
+for i in range(100):
+  xi = np.dot(A,xi)
+  xi = xi/max(xi)
+  print("iteration", i+1, xi)
+  Ax = np.dot(A,xi)
+
+Ax_dot_x = np.dot(Ax,xi)
+x_dot_x = np.dot(xi,xi)
+eigenvalue = Ax_dot_x/x_dot_x
